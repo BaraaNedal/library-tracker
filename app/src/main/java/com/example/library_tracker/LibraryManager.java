@@ -119,6 +119,7 @@ public class LibraryManager {
             }
             return removed;
         }
+        // Branch Ubdated
 
         public int getBooksCount() {
             return loadBooks().length();
