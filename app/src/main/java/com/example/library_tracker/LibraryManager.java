@@ -120,6 +120,7 @@ public class LibraryManager {
             return removed;
         }
 
+        // Master update
         public int getBooksCount() {
             return loadBooks().length();
         }
