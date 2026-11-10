@@ -77,5 +77,52 @@ public class LibraryManager {
             e.printStackTrace();
         }
         return sb.toString();
+
+        public String searchBook(String query) {
+            JSONArray books = loadBooks();
+            StringBuilder results = new StringBuilder();
+            try {
+                for (int i = 0; i < books.length(); i++) {
+                    JSONObject book = books.getJSONObject(i);
+                    String title = book.getString("title");
+                    String author = book.getString("author");
+                    if (title.toLowerCase().contains(query.toLowerCase()) ||
+                            author.toLowerCase().contains(query.toLowerCase())) {
+                        results.append("- ").append(title)
+                                .append(" by ").append(author).append("\n");
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return results.length() > 0 ? results.toString() : "No matching books found.";
+        }
+
+        public boolean removeBook(String title) {
+            JSONArray books = loadBooks();
+            JSONArray updatedBooks = new JSONArray();
+            boolean removed = false;
+            try {
+                for (int i = 0; i < books.length(); i++) {
+                    JSONObject book = books.getJSONObject(i);
+                    if (book.getString("title").equalsIgnoreCase(title) && !removed) {
+                        removed = true;
+                    } else {
+                        updatedBooks.put(book);
+                    }
+                }
+                if (removed) {
+                    saveBooks(updatedBooks);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return removed;
+        }
+
+        public int getBooksCount() {
+            return loadBooks().length();
+        }
+
     }
 }
