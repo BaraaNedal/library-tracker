@@ -121,6 +121,7 @@ public class LibraryManager {
         }
         // Branch Ubdated
 
+        // Master update
         public int getBooksCount() {
             return loadBooks().length();
         }
