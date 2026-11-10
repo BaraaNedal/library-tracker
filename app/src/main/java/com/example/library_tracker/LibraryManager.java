@@ -17,7 +17,7 @@ public class LibraryManager {
     }
 
     public static String print_banner() {
-        return "=== Library Tracker System v1.0 ===";
+        return "=== Library Tracker v1.1 - Search & Remove ===";
     }
 
     private JSONArray loadBooks() {
