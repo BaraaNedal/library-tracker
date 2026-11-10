@@ -121,7 +121,7 @@ public class LibraryManager {
         }
 
         public int getBooksCount() {
-            return loadBooks().length();
+            return loadBooks().length(); // Return the number of books in the library
         }
 
     }
