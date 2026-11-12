@@ -36,6 +36,7 @@ public class LibraryManager {
         }
     }
 
+    // Writes the full books list to books.json.
     private void saveBooks(JSONArray books) {
         try {
             File file = new File(context.getFilesDir(), FILE_NAME);
