@@ -47,6 +47,7 @@ public class LibraryManager {
         }
     }
 
+    // Adds a new book and saves it to books.json.
     public void addBook(String title, String author) {
         try {
             JSONArray books = loadBooks();
