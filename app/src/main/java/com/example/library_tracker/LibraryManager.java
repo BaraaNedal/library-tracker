@@ -127,6 +127,7 @@ public class LibraryManager {
         return removed;
     }
 
+    // Returns how many books are saved in books.json.
     public int getBooksCount() {
         return loadBooks().length();
     }
