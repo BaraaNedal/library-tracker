@@ -19,7 +19,7 @@ public class LibraryManager {
     }
 
     public static String print_banner() {
-        return "=== Library Tracker v1.1 - Add & List ===";
+        return "=== Library Tracker v1.2 - Add, List, Search & Remove ===";
     }
 
     private JSONArray loadBooks() {
