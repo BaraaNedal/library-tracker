@@ -84,6 +84,7 @@ public class LibraryManager {
         return sb.toString();
     }
 
+    // Finds books whose title or author contains the query (case-insensitive).
     public String searchBook(String query) {
         JSONArray books = loadBooks();
         StringBuilder results = new StringBuilder();
