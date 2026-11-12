@@ -1,8 +1,10 @@
 package com.example.library_tracker;
 
 import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -17,7 +19,7 @@ public class LibraryManager {
     }
 
     public static String print_banner() {
-        return "=== Library Tracker v1.1 - Search & Remove ===";
+        return "=== Library Tracker v1.2 - Add, List, Search & Remove ===";
     }
 
     private JSONArray loadBooks() {
@@ -34,6 +36,7 @@ public class LibraryManager {
         }
     }
 
+    // Writes the full books list to books.json.
     private void saveBooks(JSONArray books) {
         try {
             File file = new File(context.getFilesDir(), FILE_NAME);
@@ -45,6 +48,7 @@ public class LibraryManager {
         }
     }
 
+    // Adds a new book and saves it to books.json.
     public void addBook(String title, String author) {
         try {
             JSONArray books = loadBooks();
@@ -58,6 +62,7 @@ public class LibraryManager {
         }
     }
 
+    // Returns all saved books as a numbered list.
     public String listBooks() {
         JSONArray books = loadBooks();
         if (books.length() == 0) {
@@ -77,52 +82,52 @@ public class LibraryManager {
             e.printStackTrace();
         }
         return sb.toString();
+    }
 
-        public String searchBook(String query) {
-            JSONArray books = loadBooks();
-            StringBuilder results = new StringBuilder();
-            try {
-                for (int i = 0; i < books.length(); i++) {
-                    JSONObject book = books.getJSONObject(i);
-                    String title = book.getString("title");
-                    String author = book.getString("author");
-                    if (title.toLowerCase().contains(query.toLowerCase()) ||
-                            author.toLowerCase().contains(query.toLowerCase())) {
-                        results.append("- ").append(title)
-                                .append(" by ").append(author).append("\n");
-                    }
+    public String searchBook(String query) {
+        JSONArray books = loadBooks();
+        StringBuilder results = new StringBuilder();
+        try {
+            for (int i = 0; i < books.length(); i++) {
+                JSONObject book = books.getJSONObject(i);
+                String title = book.getString("title");
+                String author = book.getString("author");
+                if (title.toLowerCase().contains(query.toLowerCase()) ||
+                        author.toLowerCase().contains(query.toLowerCase())) {
+                    results.append("- ").append(title)
+                            .append(" by ").append(author).append("\n");
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-            return results.length() > 0 ? results.toString() : "No matching books found.";
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return results.length() > 0 ? results.toString() : "No matching books found.";
+    }
 
-        public boolean removeBook(String title) {
-            JSONArray books = loadBooks();
-            JSONArray updatedBooks = new JSONArray();
-            boolean removed = false;
-            try {
-                for (int i = 0; i < books.length(); i++) {
-                    JSONObject book = books.getJSONObject(i);
-                    if (book.getString("title").equalsIgnoreCase(title) && !removed) {
-                        removed = true;
-                    } else {
-                        updatedBooks.put(book);
-                    }
+    // Removes the first book with this title (case-insensitive) and saves the updated list.
+    public boolean removeBook(String title) {
+        JSONArray books = loadBooks();
+        JSONArray updatedBooks = new JSONArray();
+        boolean removed = false;
+        try {
+            for (int i = 0; i < books.length(); i++) {
+                JSONObject book = books.getJSONObject(i);
+                if (book.getString("title").equalsIgnoreCase(title) && !removed) {
+                    removed = true;
+                } else {
+                    updatedBooks.put(book);
                 }
-                if (removed) {
-                    saveBooks(updatedBooks);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-            return removed;
+            if (removed) {
+                saveBooks(updatedBooks);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return removed;
+    }
 
-        public int getBooksCount() {
-            return loadBooks().length();
-        }
-
+    public int getBooksCount() {
+        return loadBooks().length();
     }
 }
