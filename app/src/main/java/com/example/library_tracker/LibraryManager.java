@@ -61,6 +61,7 @@ public class LibraryManager {
         }
     }
 
+    // Returns all saved books as a numbered list.
     public String listBooks() {
         JSONArray books = loadBooks();
         if (books.length() == 0) {
