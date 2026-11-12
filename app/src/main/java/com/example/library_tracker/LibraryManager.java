@@ -19,7 +19,7 @@ public class LibraryManager {
     }
 
     public static String print_banner() {
-        return "=== Library Tracker System v1.0 ===";
+        return "=== Library Tracker v1.1 - Add & List ===";
     }
 
     private JSONArray loadBooks() {
@@ -36,6 +36,7 @@ public class LibraryManager {
         }
     }
 
+    // Writes the full books list to books.json.
     private void saveBooks(JSONArray books) {
         try {
             File file = new File(context.getFilesDir(), FILE_NAME);
@@ -47,6 +48,7 @@ public class LibraryManager {
         }
     }
 
+    // Adds a new book and saves it to books.json.
     public void addBook(String title, String author) {
         try {
             JSONArray books = loadBooks();
@@ -60,6 +62,7 @@ public class LibraryManager {
         }
     }
 
+    // Returns all saved books as a numbered list.
     public String listBooks() {
         JSONArray books = loadBooks();
         if (books.length() == 0) {
