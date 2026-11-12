@@ -101,6 +101,7 @@ public class LibraryManager {
         return results.length() > 0 ? results.toString() : "No matching books found.";
     }
 
+    // Removes the first book with this title (case-insensitive) and saves the updated list.
     public boolean removeBook(String title) {
         JSONArray books = loadBooks();
         JSONArray updatedBooks = new JSONArray();
